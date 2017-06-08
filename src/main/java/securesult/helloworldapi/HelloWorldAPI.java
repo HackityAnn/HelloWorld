@@ -28,12 +28,6 @@ public class HelloWorldAPI {
     /**
      * Web service operation
      */
-    @WebMethod(operationName = "operation")
-    public int operation(@WebParam(name = "x") int x, @WebParam(name = "y") int y) {
-        //TODO write your implementation code here:
-        int z = x + y;
-        return z;
-    }
 
     /**
      * Web service operation
