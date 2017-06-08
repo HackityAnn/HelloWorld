@@ -4,7 +4,7 @@ import time
 from pprint import pprint
 from zapv2 import ZAPv2
 
-target = 'http://172.20.0.100/HelloWorldAPI/HelloWorldAPI'
+target = 'http://172.20.0.100:8080/HelloWorldAPI/HelloWorldAPI'
 zap = ZAPv2()
 
 print 'Accessing target %s' % target
