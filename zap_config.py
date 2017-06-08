@@ -31,5 +31,5 @@ while (int(zap.ascan.status) < 100):
 print 'Scan completed'
 
 output = open("ZAP_Scan.txt","a")
-output.write("Hosts: " + zap.core.hosts
+output.write("Hosts: " + zap.core.hosts)
 output.write("Alerts: " + zap.core.alerts())
