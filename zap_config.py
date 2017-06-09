@@ -1,35 +1,39 @@
-#!/usr/bin/env python
-
-import time
-from pprint import pprint
+import time 
 from zapv2 import ZAPv2
 
 target = 'http://172.20.0.100:8080/HelloWorldAPI/HelloWorldAPI'
-zap = ZAPv2(proxies={'http':'http://127.0.0.1:8090','https':'http://127.0.0.1:9090'})
 
-print 'Accessing target %s' % target
-zap.urlopen(target)
-time.sleep(5)
+zap = ZAPv2()
 
-zap.spider.scan(target)
+print 'Starting target: %s' % target
+scanid = zap.spider.scan(target)
+
 time.sleep(2)
-print 'Status %s' % zap.spider.status
-while (int(zap.spider.status)<100):
-    print 'Spider progress %: ' + zap.spider.status
-    time.sleep(400)
+while (int(zap.spider.status(scanid)) < 100):
+    print 'Spider progress %: ' + zap.spider.status(scanid)
+    time.sleep(2)
 
-print 'Spider completed'
+print 'Spider completed!'
 
 time.sleep(5)
 
-print 'Scanning target %s' % target
-zap.ascan.scan(target)
-while (int(zap.ascan.status) < 100):
-    print 'Scan progress %: ' + zap.ascan.status
-    time.sleep(600)
+print 'Starting scan: %s' % target
+scanid = zap.ascan.scan(target)
+print 'Started 1'
+print zap.ascan.status(scanid)
+while (int(zap.ascan.status(scanid)) < 100):
+    print 'Scan progress %: ' + zap.ascan.status(scanid)
+    time.sleep(5)
 
 print 'Scan completed'
 
-output = open("ZAP_Scan.txt","a")
-output.write("Hosts: " + zap.core.hosts)
-output.write("Alerts: " + zap.core.alerts())
+f = open('ZAP_output.txt','a')
+hosts = zap.core.hosts
+alerts = zap.core.alerts()
+for each in hosts:
+    print >> f, 'Hosts: ', zap.core.hosts
+    print >> f, '\n\n'
+for each in alerts:
+    print >> f, 'Alerts: ', zap.core.alerts()
+    print >> f, '\n\n'
+f.close()
