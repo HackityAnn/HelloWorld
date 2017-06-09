@@ -1,5 +1,8 @@
 import time 
 from zapv2 import ZAPv2
+import os
+
+os.system("/usr/share/zaproxy/zap.sh -daemon -config api.disablekey=true")
 
 target = 'http://172.20.0.100:8080/HelloWorldAPI/HelloWorldAPI'
 
